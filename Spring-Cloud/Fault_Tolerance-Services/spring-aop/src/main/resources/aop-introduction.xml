@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/jdbc
+       http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd">
+    <aop:aspectj-autoproxy/>
+
+    <jdbc:embedded-database id="dataSource"/>
+
+    <bean id ="nemil" class="com.nemil.springaop.FlightManagementApp.Passenger">
+        <property name="SSN" value="5"/>
+        <property name="name" value="Nemil"/>
+        <property name="country" value="USA"/>
+    </bean>
+
+    <bean id="shrey" class="com.nemil.springaop.FlightManagementApp.Passenger">
+        <property name="SSN" value="6"/>
+        <property name="name" value="Shrey"/>
+        <property name="country" value="India"/>
+    </bean>
+
+    <bean id = "flight" class="com.nemil.springaop.FlightManagementApp.Flight">
+        <property name="id" value="AA1234"/>
+        <property name="company" value="United Airlines"/>
+        <property name="flightPassengers">
+            <list>
+                <ref bean="nemil"/>
+                <ref bean="shrey"/>
+            </list>
+        </property>
+    </bean>
+
+</beans>

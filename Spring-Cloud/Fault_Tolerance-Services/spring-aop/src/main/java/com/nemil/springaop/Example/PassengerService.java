@@ -1,0 +1,16 @@
+package com.nemil.springaop.Example;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class PassengerService {
+
+    public Passenger runPassengerService(){
+
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("aop1.xml");
+
+        PassengerRepo passengerRepo = (PassengerRepo) context.getBean("passengerRepo");
+
+        context.close();
+        return passengerRepo.getPassengerById(1);
+    }
+}

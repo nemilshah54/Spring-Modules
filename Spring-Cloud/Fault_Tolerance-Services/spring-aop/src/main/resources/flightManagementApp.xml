@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/jdbc
+       http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd">
+    <aop:aspectj-autoproxy/>
+
+    <jdbc:embedded-database id="dataSource"/>
+<!--        <jdbc:initialize-database data-source="dataSource">-->
+<!--            <jdbc:script location="classpath:db-schema.sql"/>-->
+<!--        </jdbc:initialize-database>-->
+
+<!--    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
+<!--        <property name="driverClassName" value="org.h2.Driver"/>-->
+<!--        <property name="url" value="jdbc:h2:~/FlightManagementApp"/>-->
+<!--        <property name="username" value="sa"/>-->
+<!--        <property name="password" value=""/>-->
+<!--    </bean>-->
+
+    <bean id ="nemil" class="com.nemil.springaop.FlightManagementApp.Passenger">
+        <property name="SSN" value="5"/>
+        <property name="name" value="Nemil"/>
+        <property name="country" value="USA"/>
+    </bean>
+
+    <bean id="shrey" class="com.nemil.springaop.FlightManagementApp.Passenger">
+        <property name="SSN" value="6"/>
+        <property name="name" value="Shrey"/>
+        <property name="country" value="India"/>
+    </bean>
+
+    <bean id = "flight" class="com.nemil.springaop.FlightManagementApp.Flight">
+        <property name="id" value="AA1234"/>
+        <property name="company" value="United Airlines"/>
+        <property name="flightPassengers">
+            <list>
+                <ref bean="nemil"/>
+                <ref bean="shrey"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="ticket" class="com.nemil.springaop.FlightManagementApp.Ticket">
+        <property name="number" value="123450"/>
+        <property name="passenger" ref="nemil"/>
+    </bean>
+
+    <bean id="passengerDAOImpl" class="com.nemil.springaop.FlightManagementApp.DAO.PassengerDAOImpl">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean name="flightAspect" class = "com.nemil.springaop.FlightManagementApp.Aspects.FlightAspect"/>
+    <bean name="loggingAspect" class="com.nemil.springaop.FlightManagementApp.Aspects.LoggingAspect"/>
+    <bean name="loggingAspect2" class="com.nemil.springaop.FlightManagementApp.Aspects.LoggingAspect2"/>
+    <bean name="cachningAspect" class="com.nemil.springaop.FlightManagementApp.Aspects.CachingAspect"/>
+    <bean name="exceptionAspect" class="com.nemil.springaop.FlightManagementApp.Aspects.ExceptionAspect"/>
+
+</beans>
